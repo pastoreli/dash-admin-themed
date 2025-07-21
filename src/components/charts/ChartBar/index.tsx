@@ -1,4 +1,3 @@
-import { Box } from "@radix-ui/themes";
 import {
   BarChart,
   XAxis,
