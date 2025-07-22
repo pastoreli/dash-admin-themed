@@ -1,4 +1,11 @@
-import { Table as RadixTable } from "@radix-ui/themes";
+import {
+  TableContainer,
+  Table as BaseTable,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from "@mui/material";
 import { ReactElement } from "react";
 
 export type TableHeader<T> = {
@@ -25,34 +32,36 @@ const Table = <Values extends TableItems = TableItems>({
   tableAriaLabel,
 }: TableProps<Values>) => {
   return (
-    <RadixTable.Root data-testid={dataTestId} aria-label={tableAriaLabel}>
-      <RadixTable.Header>
-        <RadixTable.Row>
-          {header.map((column) => (
-            <RadixTable.ColumnHeaderCell>
-              {column.label}
-            </RadixTable.ColumnHeaderCell>
-          ))}
-        </RadixTable.Row>
-      </RadixTable.Header>
+    <TableContainer data-testid={dataTestId} aria-label={tableAriaLabel}>
+      <BaseTable
+        size="medium"
+        sx={{ minWidth: 650 }}
+        aria-label={tableAriaLabel}
+      >
+        <TableHead>
+          <TableRow>
+            {header.map((column) => (
+              <TableCell>{column.label}</TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
 
-      <RadixTable.Body>
-        {items.map((item, index) => (
-          <RadixTable.Row key={index}>
-            {header.map((column) => {
-              const value = column.selector(item);
-              return column.customComponent ? (
-                <RadixTable.Cell>
-                  {column.customComponent(item)}
-                </RadixTable.Cell>
-              ) : (
-                <RadixTable.Cell>{value}</RadixTable.Cell>
-              );
-            })}
-          </RadixTable.Row>
-        ))}
-      </RadixTable.Body>
-    </RadixTable.Root>
+        <TableBody>
+          {items.map((item, index) => (
+            <TableRow key={index}>
+              {header.map((column) => {
+                const value = column.selector(item);
+                return column.customComponent ? (
+                  <TableCell>{column.customComponent(item)}</TableCell>
+                ) : (
+                  <TableCell>{value}</TableCell>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableBody>
+      </BaseTable>
+    </TableContainer>
   );
 };
 

@@ -1,49 +1,66 @@
-import { Flex, Text, Container, Box, Card, Grid } from "@radix-ui/themes";
+import {
+  Box,
+  Typography,
+  Container,
+  Card,
+  Grid,
+  useTheme,
+} from "@mui/material";
 import { TableCampaign } from "./components/tables";
 import { CampaignEntity } from "./domain/campaign/entity";
 import { ChartBar, ChartLine } from "./components/charts";
 
 export default function App() {
+  const theme = useTheme();
+
   return (
-    <Container align="center">
-      <Flex direction="column" gap="4">
-        <Text>Hello from Radix Themes :)</Text>
-        <Grid columns="3" gap="4" width="auto">
-          <Card>
-            <ChartBar
-              data={mockActivatedCampaigns}
-              XAxisKey="label"
-              contentOptions={[{ key: "value", name: "Ativadas" }]}
-            />
-          </Card>
-          <Card>
-            <ChartBar
-              data={mockActivatedCampaignsByType}
-              XAxisKey="label"
-              contentOptions={[
-                { key: "phone", name: "Celular" },
-                { key: "pix", name: "Pix", color: "#BD0014" },
-              ]}
-            />
-          </Card>
-          <Card>
-            <ChartLine
-              data={mockActivatedCampaignsByType}
-              XAxisKey="label"
-              contentOptions={[
-                { key: "phone", name: "Celular" },
-                { key: "pix", name: "Pix", color: "#BD0014" },
-              ]}
-            />
-          </Card>
-        </Grid>
-        <Box width="100%">
-          <Card>
-            <TableCampaign items={mockCampaigns} />
-          </Card>
+    <Box bgcolor={theme.palette.background.default} minHeight="100vh">
+      <Container sx={{ p: "2.4rem" }}>
+        <Box display="flex" flexDirection="column" gap="2.4rem">
+          <Typography>Hello from Mui Themes :)</Typography>
+          <Grid container spacing="1.6rem">
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Card>
+                <ChartBar
+                  data={mockActivatedCampaigns}
+                  XAxisKey="label"
+                  contentOptions={[{ key: "value", name: "Ativadas" }]}
+                />
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Card>
+                <ChartBar
+                  data={mockActivatedCampaignsByType}
+                  XAxisKey="label"
+                  contentOptions={[
+                    { key: "phone", name: "Celular" },
+                    { key: "pix", name: "Pix", color: "#BD0014" },
+                  ]}
+                />
+              </Card>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Card>
+                <ChartLine
+                  data={mockActivatedCampaignsByType}
+                  XAxisKey="label"
+                  contentOptions={[
+                    { key: "phone", name: "Celular" },
+                    { key: "pix", name: "Pix", color: "#BD0014" },
+                  ]}
+                />
+              </Card>
+            </Grid>
+          </Grid>
+          <Box width="100%">
+            <Card>
+              <TableCampaign items={mockCampaigns} />
+            </Card>
+          </Box>
         </Box>
-      </Flex>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 
